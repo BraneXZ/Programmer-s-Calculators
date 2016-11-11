@@ -312,9 +312,9 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
             {
                 result.setText("negative");
             }
-            if(e.getActionCommand().equals("bin"))
+            if(e.getSource() == add)
             {
-                seven.setEnabled(false);
+                result.add();
             }
         }
     
