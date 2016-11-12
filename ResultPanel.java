@@ -1,48 +1,138 @@
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import javax.swing.*;
 import java.awt.Dimension;
+import java.awt.Font;
 
 public class ResultPanel extends JPanel {
     
     private JLabel result; 
     private String defaultString = "0";
-    int firstNum = 0;
-    int secNum = 0;
-    int counter = 0;
+    int nums[] = new int[2];
+    boolean operation[] = new boolean [4];
+    boolean operationPerformed; 
+    boolean equal;
+    boolean error = false;
     
     public ResultPanel()
     {
         result = new JLabel(defaultString);
         result.setPreferredSize(new Dimension(450, 50));
-        result.setHorizontalTextPosition(JLabel.RIGHT);
+        result.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         result.setOpaque(true);
+        result.setFont(new Font("Times new Roman", Font.BOLD, 43));
         add(result);
     }
     
     public void add()
     {
-        if(counter == 0)
+        for(int i = 1; i < operation.length; i++)
         {
-        firstNum = Integer.parseInt(result.getText());
-        setText("add");
+            if(operation[i])
+            {
+                setText("operation");
+                operation[0] = true;
+                operation[1] = false;
+                operation[2] = false;
+                operation[3] = false;  
+                operationPerformed = true;
+                return;
+            }
         }
-        else
+        operation[0] = true;
+        operation[1] = false;
+        operation[2] = false;
+        operation[3] = false;  
+        operationPerformed = true;
+        setText("operation");
+    }
+    
+    public void sub()
+    {
+        if(operation[0] == true || operation[2] == true || operation[3] == true)
         {
-            setText("actually add");
-            counter = 0; 
+            setText("operation");
+            operation[0] = false;
+            operation[1] = true;
+            operation[2] = false;
+            operation[3] = false;    
+            operationPerformed = true;
+            return;
         }
-        
+        operation[0] = false;
+        operation[1] = true;
+        operation[2] = false;
+        operation[3] = false;    
+        operationPerformed = true;
+        setText("operation");
+    }
+    
+    public void mult()
+    {
+        if(operation[0] == true || operation[1] == true || operation[3] == true)
+        {
+            setText("operation");
+            operation[0] = false;
+            operation[1] = false;
+            operation[2] = true;
+            operation[3] = false;    
+            operationPerformed = true;
+            return;
+        }
+        operation[0] = false;
+        operation[1] = false;
+        operation[2] = true;
+        operation[3] = false;
+        operationPerformed = true;
+        setText("operation");
+    }
+    
+    public void div()
+    {
+        if(operation[0] == true || operation[1] == true || operation[2] == true)
+        {
+            setText("operation");
+            operation[0] = false;
+            operation[1] = false;
+            operation[2] = false;
+            operation[3] = true;    
+            operationPerformed = true;
+            return;
+        }
+        operation[0] = false;
+        operation[1] = false;
+        operation[2] = false;
+        operation[3] = true; 
+        operationPerformed = true;
+        setText("operation");
+    }
+    
+    public void equals()
+    {
+        equal = true;
+        operationPerformed = true;
+        setText("operation");
     }
     
     public void setText(String s)
     {
+        if(error)
+        {
+            result.setText("0");
+            error = false;
+            return;
+        }
+        
         int resultLength = result.getText().length();
         String resultText = result.getText();
+        int currentText = Integer.parseInt(resultText); 
+        
         if(s.equals("back"))
         {
-            if(resultLength == 0)
+            if(resultLength == 1)
             {
+                result.setText("0");
                 return;
             }
             if(resultText.equals("0"))
@@ -52,23 +142,102 @@ public class ResultPanel extends JPanel {
             result.setText(resultText.substring(0, resultLength-1));
             return;
         }
+        if(s.equals("clearEntry"))
+        {
+            result.setText("0");
+                       
+            return;
+        }
+        
+        if(s.equals("negative"))
+        {
+           
+            currentText *= -1;
+            result.setText(Integer.toString(currentText));
+            return;
+        }
+        
         if(s.equals("clear"))
         {
             result.setText("0");
+            nums[0] = 0;
+            nums[1] = 0;
+            for(boolean i:operation)
+            {
+                i = false;
+            }
             return;
         }
-        if(s.equals("negative"))
+        
+        
+        if(s.equals("operation"))
         {
-            if(resultText.substring(0,1).equals("-"))
+            if(nums[0] == 0)
             {
-                result.setText(resultText.substring(1,resultLength));
+                nums[0] = currentText; 
                 return;
+            }
+            else if(equal)
+            {
+                if(nums[1] == 0)
+                {
+                    nums[1] = currentText;
+                }
+                else if(nums[1] != currentText)
+                {
+                    nums[1] = currentText;
+                    
+                }
+                equal = false;
             }
             else
-            {                
-                result.setText("-" + resultText);
+            {
+                nums[1] = currentText;
+            }
+            
+            //add
+            if(operation[0])
+            {
+                result.setText(Integer.toString(nums[0] + nums[1]));
+                nums[0] += nums[1]; 
                 return;
             }
+            
+            //sub
+            else if(operation[1])
+            {
+                result.setText(Integer.toString(nums[0] - nums[1]));
+                nums[0] -= nums[1];
+                return;
+            }
+            
+            //mult
+            else if(operation[2])
+            {
+                result.setText(Integer.toString(nums[0] * nums[1]));
+                nums[0] *= nums[1];
+                return;
+            }
+            
+            //div
+            else if(operation[3])
+            {
+                if(nums[1] == 0)
+                {
+                    result.setText("Cannot divide by 0");
+                    operation[3] = false;
+                    error = true;
+                    nums[0] = 0;
+                    nums[1] = 0;
+                    return;
+                }
+                result.setText(Integer.toString(nums[0] / nums[1]));
+                nums[0] /= nums[1];
+                return;
+            }
+            
+            
+            return;
         }
         
         if(resultText.equals("0"))
@@ -77,12 +246,24 @@ public class ResultPanel extends JPanel {
         }
         else
         {
-            result.setText(result.getText()+s);
-        }
-        
-        if(s.equals("add"))
-        {
+            for(boolean i:operation)
+            {
+                if(i && operationPerformed)
+                {
+                    result.setText(s);
+                    operationPerformed = false;
+                    return;
+                }
+            }
+                result.setText(result.getText()+s);
+                   
+                
+                
+            }
+            
             
         }
+        
+        
     }
-}
+

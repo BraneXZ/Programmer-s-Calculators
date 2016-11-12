@@ -71,7 +71,7 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
             equals = new JButton("=");
             oneOverX = new JButton("1/x");
             percent = new JButton("%");
-            sqrt = new JButton("sqrt");
+            sqrt = new JButton("√");
             A = new JButton("A");
             B = new JButton("B");
             C = new JButton("C");
@@ -308,6 +308,10 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
             {
                 result.setText("clear");
             }
+            if(e.getSource() == clearEntry)
+            {
+                result.setText("clearEntry");
+            }
             if(e.getSource() == negative)
             {
                 result.setText("negative");
@@ -316,6 +320,23 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
             {
                 result.add();
             }
+            if(e.getSource() == equals)
+            {
+                result.equals();
+            }
+            if(e.getSource() == sub)
+            {
+                result.sub();
+            }
+            if(e.getSource() == mult)
+            {
+                result.mult();
+            }
+            if(e.getSource() == div)
+            {
+                result.div();
+            }
+            
         }
     
 }
