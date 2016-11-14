@@ -251,50 +251,162 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
             decimal.addActionListener(this);
             add.addActionListener(this);
             equals.addActionListener(this);
-            hex.addActionListener(this);
+            hex.addActionListener(this); 
             dec.addActionListener(this);
             oct.addActionListener(this);
             bin.addActionListener(this);
+            A.addActionListener(this);
+            B.addActionListener(this);
+            C.addActionListener(this);
+            D.addActionListener(this);
+            E.addActionListener(this);
+            F.addActionListener(this);
             
         }
         
         public void actionPerformed(ActionEvent e)
         {
+            
+            if(dec.isSelected())
+            {
+                result.setDecimal(result.getText());
+                result.setBases(1);
+                
+                if(e.getSource() == two)
+                {
+                    result.setText("2");
+                }
+                if(e.getSource() == three)
+                {
+                    result.setText("3");
+                }
+                if(e.getSource() == four)
+                {
+                    result.setText("4");
+                }
+                if(e.getSource() == five)
+                {
+                    result.setText("5");
+                }
+                if(e.getSource() == six)
+                {
+                    result.setText("6");
+                }
+                if(e.getSource() == seven)
+                {
+                    result.setText("7");
+                }
+                if(e.getSource() == eight)
+                {
+                    result.setText("8");
+                }
+                if(e.getSource() == nine)
+                {
+                    result.setText("9");
+                }
+                
+                
+            }
+            
+            if(bin.isSelected())
+            {                
+                result.setBinary(result.getText());
+                        
+            }
+            
+            if(hex.isSelected())
+            {                
+                result.setHex(result.getText());
+                if(e.getSource() == two)
+                {
+                    result.setText("2");
+                }
+                if(e.getSource() == three)
+                {
+                    result.setText("3");
+                }
+                if(e.getSource() == four)
+                {
+                    result.setText("4");
+                }
+                if(e.getSource() == five)
+                {
+                    result.setText("5");
+                }
+                if(e.getSource() == six)
+                {
+                    result.setText("6");
+                }
+                if(e.getSource() == seven)
+                {
+                    result.setText("7");
+                }
+                if(e.getSource() == eight)
+                {
+                    result.setText("8");
+                }
+                if(e.getSource() == nine)
+                {
+                    result.setText("9");
+                }
+                if(e.getSource() == A)
+                {
+                    result.setText("A");
+                }
+                if(e.getSource() == B)
+                {
+                    result.setText("B");
+                }
+                if(e.getSource() == C)
+                {
+                    result.setText("C");
+                }
+                if(e.getSource() == D)
+                {
+                    result.setText("D");
+                }
+                if(e.getSource() == E)
+                {
+                    result.setText("E");
+                }
+                if(e.getSource() == F)
+                {
+                    result.setText("F");
+                }
+            }
+            
+            if(oct.isSelected())
+            {                         
+                result.setOct(result.getText());
+                if(e.getSource() == two)
+                {
+                    result.setText("2");
+                }
+                if(e.getSource() == three)
+                {
+                    result.setText("3");
+                }
+                if(e.getSource() == four)
+                {
+                    result.setText("4");
+                }
+                if(e.getSource() == five)
+                {
+                    result.setText("5");
+                }
+                if(e.getSource() == six)
+                {
+                    result.setText("6");
+                }
+                if(e.getSource() == seven)
+                {
+                    result.setText("7");
+                }
+            }
+            
             if(e.getSource() == one)
-            {
+            {    
                 result.setText("1");
-            }
-            if(e.getSource() == two)
-            {
-                result.setText("2");
-            }
-            if(e.getSource() == three)
-            {
-                result.setText("3");
-            }
-            if(e.getSource() == four)
-            {
-                result.setText("4");
-            }
-            if(e.getSource() == five)
-            {
-                result.setText("5");
-            }
-            if(e.getSource() == six)
-            {
-                result.setText("6");
-            }
-            if(e.getSource() == seven)
-            {
-                result.setText("7");
-            }
-            if(e.getSource() == eight)
-            {
-                result.setText("8");
-            }
-            if(e.getSource() == nine)
-            {
-                result.setText("9");
             }
             if(e.getSource() == zero || (e.getSource() == zero2) )
             {
@@ -340,3 +452,5 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
         }
     
 }
+
+        

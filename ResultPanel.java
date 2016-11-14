@@ -12,6 +12,7 @@ public class ResultPanel extends JPanel {
     int nums[] = new int[2];
     boolean operation[] = new boolean [4];
     boolean operationPerformed; 
+    boolean bases[] = {false, true, false, false};
     boolean equal;
     boolean error = false;
     
@@ -115,6 +116,108 @@ public class ResultPanel extends JPanel {
         setText("operation");
     }
     
+    public String getText()
+    {
+        return result.getText();
+    }
+    
+    public void setBases(int i)
+    {
+        if(i == 0)
+        {
+            bases[0] = true;
+            bases[1] = false;
+            bases[2] = false;
+            bases[3] = false;
+        }
+        else if(i == 1)
+        {
+            bases[0] = false;
+            bases[1] = true;
+            bases[2] = false;
+            bases[3] = false;
+        }
+        else if(i == 2)
+        {
+            bases[0] = false;
+            bases[1] = false;
+            bases[2] = true;
+            bases[3] = false;
+        }
+        else if(i == 3)
+        {
+            bases[0] = false;
+            bases[1] = false;
+            bases[2] = false;
+            bases[3] = true;
+        }
+    }
+    
+    public void setBinary(String s)
+    {
+        int convert = Integer.parseInt(convertToDec(s));
+        setBases(3);
+        result.setText(convertFromDec(Integer.toString(convert)));
+    }
+    
+    public void setDecimal(String s)
+    {
+        result.setText(convertToDec(s));
+    }
+    
+    public void setHex(String s)
+    {
+        int convert = Integer.parseInt(convertToDec(s));
+        setBases(0);
+        result.setText(convertFromDec(Integer.toString(convert)).toUpperCase());
+    }
+    
+    public void setOct(String s)
+    {
+        int convert = Integer.parseInt(convertToDec(s));
+        setBases(2);
+        result.setText(convertFromDec(Integer.toString(convert)));
+    }
+    
+    public String convertFromDec(String s)
+    {
+        if(bases[0])
+        {
+            return Integer.toHexString(Integer.parseInt(s));
+        }
+        else if(bases[1])
+        {
+            return s;
+        }
+        else if(bases[2])
+        {
+            return Integer.toOctalString(Integer.parseInt(s));
+        }
+        else
+        {
+            return Integer.toBinaryString(Integer.parseInt(s));
+        }
+    }
+    public String convertToDec(String s)
+    {
+        if(bases[0])
+        {
+            return Integer.toString(Integer.valueOf(s, 16));
+        }
+        else if(bases[1])
+        {
+            return s;
+        }
+        else if(bases[2])
+        {
+            return Integer.toString(Integer.valueOf(s, 8));
+        }
+        else 
+        {
+            return Integer.toString(Integer.valueOf(s, 2));
+        }
+    }
+    
     public void setText(String s)
     {
         if(error)
@@ -123,11 +226,29 @@ public class ResultPanel extends JPanel {
             error = false;
             return;
         }
-        
+
         int resultLength = result.getText().length();
         String resultText = result.getText();
-        int currentText = Integer.parseInt(resultText); 
+        int currentText = 0;
         
+        if(bases[0])
+        {
+            currentText = Integer.parseInt(convertToDec(result.getText()));
+        }
+        if(bases[1])
+        {
+            currentText = Integer.parseInt(resultText); 
+        }
+        if(bases[2])
+        {
+            currentText = Integer.parseInt(convertToDec(result.getText()));
+        }
+        if(bases[3])
+        {
+            currentText = Integer.parseInt(convertToDec(result.getText()));
+        }
+        
+       
         if(s.equals("back"))
         {
             if(resultLength == 1)
@@ -150,8 +271,7 @@ public class ResultPanel extends JPanel {
         }
         
         if(s.equals("negative"))
-        {
-           
+        {          
             currentText *= -1;
             result.setText(Integer.toString(currentText));
             return;
@@ -198,6 +318,24 @@ public class ResultPanel extends JPanel {
             //add
             if(operation[0])
             {
+                if(bases[0])
+                {
+                    result.setText(Integer.toHexString(nums[0] + nums[1]).toUpperCase());
+                    nums[0] += nums[1];
+                    return;
+                }
+                if(bases[2])
+                {
+                    result.setText(Integer.toOctalString(nums[0] + nums[1]));
+                    nums[0] += nums[1];
+                    return;
+                }
+                if(bases[3])
+                {
+                    result.setText(Integer.toBinaryString(nums[0] + nums[1]));
+                    nums[0] += nums[1];
+                    return;
+                }
                 result.setText(Integer.toString(nums[0] + nums[1]));
                 nums[0] += nums[1]; 
                 return;
@@ -206,6 +344,24 @@ public class ResultPanel extends JPanel {
             //sub
             else if(operation[1])
             {
+                if(bases[0])
+                {
+                    result.setText(Integer.toHexString(nums[0] - nums[1]).toUpperCase());
+                    nums[0] -= nums[1];
+                    return;
+                }
+                if(bases[2])
+                {
+                    result.setText(Integer.toOctalString(nums[0] - nums[1]));
+                    nums[0] -= nums[1];
+                    return;
+                }
+                if(bases[3])
+                {
+                    result.setText(Integer.toBinaryString(nums[0] - nums[1]));
+                    nums[0] -= nums[1];
+                    return;
+                }
                 result.setText(Integer.toString(nums[0] - nums[1]));
                 nums[0] -= nums[1];
                 return;
@@ -214,6 +370,24 @@ public class ResultPanel extends JPanel {
             //mult
             else if(operation[2])
             {
+                if(bases[0])
+                {
+                    result.setText(Integer.toHexString(nums[0] * nums[1]).toUpperCase());
+                    nums[0] *= nums[1];
+                    return;
+                }
+                if(bases[2])
+                {
+                    result.setText(Integer.toOctalString(nums[0] * nums[1]));
+                    nums[0] *= nums[1];
+                    return;
+                }
+                if(bases[3])
+                {
+                    result.setText(Integer.toBinaryString(nums[0] * nums[1]));
+                    nums[0] *= nums[1];
+                    return;
+                }
                 result.setText(Integer.toString(nums[0] * nums[1]));
                 nums[0] *= nums[1];
                 return;
@@ -229,6 +403,24 @@ public class ResultPanel extends JPanel {
                     error = true;
                     nums[0] = 0;
                     nums[1] = 0;
+                    return;
+                }
+                if(bases[0])
+                {
+                    result.setText(Integer.toHexString(nums[0] / nums[1]).toUpperCase());
+                    nums[0] /= nums[1];
+                    return;
+                }
+                if(bases[2])
+                {
+                    result.setText(Integer.toOctalString(nums[0] / nums[1]));
+                    nums[0] /= nums[1];
+                    return;
+                }
+                if(bases[3])
+                {
+                    result.setText(Integer.toBinaryString(nums[0] / nums[1]));
+                    nums[0] /= nums[1];
                     return;
                 }
                 result.setText(Integer.toString(nums[0] / nums[1]));
