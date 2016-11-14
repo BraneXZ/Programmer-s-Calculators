@@ -155,6 +155,10 @@ public class ResultPanel extends JPanel {
     
     public void setBinary(String s)
     {
+        if(error)
+        {
+            return;
+        }
         int convert = Integer.parseInt(convertToDec(s));
         setBases(3);
         result.setText(convertFromDec(Integer.toString(convert)));
@@ -167,6 +171,10 @@ public class ResultPanel extends JPanel {
     
     public void setHex(String s)
     {
+        if(error)
+        {
+            return;
+        }
         int convert = Integer.parseInt(convertToDec(s));
         setBases(0);
         result.setText(convertFromDec(Integer.toString(convert)).toUpperCase());
@@ -174,6 +182,10 @@ public class ResultPanel extends JPanel {
     
     public void setOct(String s)
     {
+        if(error)
+        {
+            return;
+        }
         int convert = Integer.parseInt(convertToDec(s));
         setBases(2);
         result.setText(convertFromDec(Integer.toString(convert)));
@@ -202,6 +214,10 @@ public class ResultPanel extends JPanel {
     {
         if(bases[0])
         {
+            if(error)
+            {
+                return s;
+            }
             return Integer.toString(Integer.valueOf(s, 16));
         }
         else if(bases[1])
@@ -210,10 +226,18 @@ public class ResultPanel extends JPanel {
         }
         else if(bases[2])
         {
+            if(error)
+            {
+                return s;
+            }
             return Integer.toString(Integer.valueOf(s, 8));
         }
         else 
         {
+            if(error)
+            {
+                return s;
+            }
             return Integer.toString(Integer.valueOf(s, 2));
         }
     }

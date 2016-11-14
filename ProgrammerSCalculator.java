@@ -95,7 +95,36 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
             box13 = new JButton(" ");
             box14 = new JButton(" ");
             box15 = new JButton(" ");
-                       
+            box1.setEnabled(false);
+            box2.setEnabled(false);
+            box3.setEnabled(false);
+            box4.setEnabled(false);
+            box5.setEnabled(false);
+            box6.setEnabled(false);
+            box7.setEnabled(false);
+            box8.setEnabled(false);
+            box9.setEnabled(false);
+            box10.setEnabled(false);
+            box11.setEnabled(false);
+            box12.setEnabled(false);
+            box13.setEnabled(false);
+            box14.setEnabled(false);
+            box15.setEnabled(false);
+            quot.setEnabled(false);
+            mod.setEnabled(false);
+            sqrt.setEnabled(false);
+            percent.setEnabled(false);
+            oneOverX.setEnabled(false);
+            decimal.setEnabled(false);
+            two.setEnabled(true);
+            A.setEnabled(false);
+            B.setEnabled(false);
+            C.setEnabled(false);
+            D.setEnabled(false);
+            E.setEnabled(false);
+            F.setEnabled(false);
+                
+            
             getContentPane().add(result, BorderLayout.NORTH);
             getContentPane().add(binary);
             
@@ -269,6 +298,21 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
             
             if(dec.isSelected())
             {
+                two.setEnabled(true);
+                three.setEnabled(true);
+                four.setEnabled(true);
+                five.setEnabled(true);
+                six.setEnabled(true);
+                seven.setEnabled(true);
+                eight.setEnabled(true);
+                nine.setEnabled(true);
+                A.setEnabled(false);
+                B.setEnabled(false);
+                C.setEnabled(false);
+                D.setEnabled(false);
+                E.setEnabled(false);
+                F.setEnabled(false);
+                
                 result.setDecimal(result.getText());
                 result.setBases(1);
                 
@@ -310,12 +354,42 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
             
             if(bin.isSelected())
             {                
+                two.setEnabled(false);
+                three.setEnabled(false);
+                four.setEnabled(false);
+                five.setEnabled(false);
+                six.setEnabled(false);
+                seven.setEnabled(false);
+                eight.setEnabled(false);
+                nine.setEnabled(false);
+                A.setEnabled(false);
+                B.setEnabled(false);
+                C.setEnabled(false);
+                D.setEnabled(false);
+                E.setEnabled(false);
+                F.setEnabled(false);
+                
                 result.setBinary(result.getText());
                         
             }
             
             if(hex.isSelected())
-            {                
+            {
+                two.setEnabled(true);
+                three.setEnabled(true);
+                four.setEnabled(true);
+                five.setEnabled(true);
+                six.setEnabled(true);
+                seven.setEnabled(true);
+                eight.setEnabled(true);
+                nine.setEnabled(true);
+                A.setEnabled(true);
+                B.setEnabled(true);
+                C.setEnabled(true);
+                D.setEnabled(true);
+                E.setEnabled(true);
+                F.setEnabled(true);
+                
                 result.setHex(result.getText());
                 if(e.getSource() == two)
                 {
@@ -376,7 +450,22 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
             }
             
             if(oct.isSelected())
-            {                         
+            {                      
+                two.setEnabled(true);
+                three.setEnabled(true);
+                four.setEnabled(true);
+                five.setEnabled(true);
+                six.setEnabled(true);
+                seven.setEnabled(true);
+                eight.setEnabled(false);
+                nine.setEnabled(false);
+                A.setEnabled(false);
+                B.setEnabled(false);
+                C.setEnabled(false);
+                D.setEnabled(false);
+                E.setEnabled(false);
+                F.setEnabled(false);
+                
                 result.setOct(result.getText());
                 if(e.getSource() == two)
                 {
