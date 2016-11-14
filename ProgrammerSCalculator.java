@@ -2,11 +2,11 @@ import javax.swing.GroupLayout;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Color;
-import java.awt.Font;
+import java.awt.datatransfer.*;
+import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 public class ProgrammerSCalculator extends JFrame implements ActionListener{
         ResultPanel result = new ResultPanel();
@@ -21,25 +21,29 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
         JPanel masters = new JPanel(); 
         JPanel base = new JPanel();
         JPanel base2 = new JPanel();
+        JMenu view, edit, help;
+        JMenuItem hide_show, copy, viewHelp;
+        JFrame helpBox;
         
         public ProgrammerSCalculator()
         {
-            JMenu view = new JMenu("View");
+            view = new JMenu("View");
             view.setMnemonic(KeyEvent.VK_F);
             
-            JMenuItem hide_show = new JMenuItem("Hide or Show");
+            hide_show = new JMenuItem("Hide or Show");
             view.add(hide_show);
             
-            JMenu edit = new JMenu("Edit");
+            edit = new JMenu("Edit");
             
-            JMenuItem copy = new JMenuItem("Copy");
+            copy = new JMenuItem("Copy");
             edit.add(copy);
+                  
             
-            JMenu help = new JMenu("Help");
+            help = new JMenu("Help");
             
-            JMenuItem viewHelp = new JMenuItem("View Help");
+            viewHelp = new JMenuItem("View Help");
             help.add(viewHelp);
-            
+                        
             JMenuBar mb = new JMenuBar();
             mb.add(view);
             mb.add(edit);
@@ -64,10 +68,10 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
             sub = new JButton("-");
             mult = new JButton("*");
             div = new JButton("/");
-            negative = new JButton("-");
+            negative = new JButton("±");
             clear = new JButton("C");
             clearEntry = new JButton("CE");
-            back = new JButton("Back");
+            back = new JButton("BS");
             equals = new JButton("=");
             oneOverX = new JButton("1/x");
             percent = new JButton("%");
@@ -290,11 +294,38 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
             D.addActionListener(this);
             E.addActionListener(this);
             F.addActionListener(this);
-            
+            copy.addActionListener(this);
+            viewHelp.addActionListener(this);
+            hide_show.addActionListener(this);
         }
         
         public void actionPerformed(ActionEvent e)
         {
+            if(e.getSource() == copy)
+            {
+                StringSelection stringSelection = new StringSelection(result.getText());
+                Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clpbrd.setContents(stringSelection, null);
+                
+            }
+            if(e.getSource() == viewHelp)
+            {
+                helpBox = new JFrame();
+                JOptionPane.showMessageDialog(helpBox, "This calculator performs basic operation and conversion between bases.", "Help", JOptionPane.DEFAULT_OPTION);
+            }
+            if(e.getSource() == hide_show)
+            {
+                if(result.isVisible())
+                {
+                    result.setVisible(false);
+                    binary.setVisible(false);
+                }
+                else
+                {
+                    result.setVisible(true);
+                    binary.setVisible(true);
+                }
+            }
             
             if(dec.isSelected())
             {
@@ -348,8 +379,53 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
                 {
                     result.setText("9");
                 }
-                
-                
+                if(e.getSource() == one)
+                {    
+                    result.setText("1");
+                }
+                if(e.getSource() == zero || (e.getSource() == zero2) )
+                {
+                    result.setText("0");
+                }
+                if(e.getSource() == back)
+                {
+                    result.setText("back");
+                }
+                if(e.getSource() == clear)
+                {
+                    result.setText("clear");
+                    binary.clear();
+                }
+                if(e.getSource() == clearEntry)
+                {
+                    result.setText("clearEntry");
+                    binary.clear();
+                }
+                if(e.getSource() == negative)
+                {
+                    result.setText("negative");
+                }
+                if(e.getSource() == add)
+                {
+                    result.add();
+                }
+                if(e.getSource() == equals)
+                {
+                    result.equals();
+                }
+                if(e.getSource() == sub)
+                {
+                    result.sub();
+                }
+                if(e.getSource() == mult)
+                {
+                    result.mult();
+                }
+                if(e.getSource() == div)
+                {
+                    result.div();
+                }
+                binary.setText(Integer.toBinaryString(Integer.parseInt(result.getText())));
             }
             
             if(bin.isSelected())
@@ -368,8 +444,54 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
                 D.setEnabled(false);
                 E.setEnabled(false);
                 F.setEnabled(false);
-                
+                if(e.getSource() == one)
+                {    
+                    result.setText("1");
+                }
+                if(e.getSource() == zero || (e.getSource() == zero2) )
+                {
+                    result.setText("0");
+                }
+                if(e.getSource() == back)
+                {
+                    result.setText("back");
+                }
+                if(e.getSource() == clear)
+                {
+                    result.setText("clear");
+                    binary.clear();
+                }
+                if(e.getSource() == clearEntry)
+                {
+                    result.setText("clearEntry");
+                    binary.clear();
+                }
+                if(e.getSource() == negative)
+                {
+                    result.setText("negative");
+                }
+                if(e.getSource() == add)
+                {
+                    result.add();
+                }
+                if(e.getSource() == equals)
+                {
+                    result.equals();
+                }
+                if(e.getSource() == sub)
+                {
+                    result.sub();
+                }
+                if(e.getSource() == mult)
+                {
+                    result.mult();
+                }
+                if(e.getSource() == div)
+                {
+                    result.div();
+                }
                 result.setBinary(result.getText());
+                binary.setText(result.getText());
                         
             }
             
@@ -447,6 +569,53 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
                 {
                     result.setText("F");
                 }
+                if(e.getSource() == one)
+                {    
+                    result.setText("1");
+                }
+                if(e.getSource() == zero || (e.getSource() == zero2) )
+                {
+                    result.setText("0");
+                }
+                if(e.getSource() == back)
+                {
+                    result.setText("back");
+                }
+                if(e.getSource() == clear)
+                {
+                    result.setText("clear");
+                    binary.clear();
+                }
+                if(e.getSource() == clearEntry)
+                {
+                    result.setText("clearEntry");
+                    binary.clear();
+                }
+                if(e.getSource() == negative)
+                {
+                    result.setText("negative");
+                }
+                if(e.getSource() == add)
+                {
+                    result.add();
+                }
+                if(e.getSource() == equals)
+                {
+                    result.equals();
+                }
+                if(e.getSource() == sub)
+                {
+                    result.sub();
+                }
+                if(e.getSource() == mult)
+                {
+                    result.mult();
+                }
+                if(e.getSource() == div)
+                {
+                    result.div();
+                }
+                binary.setText(Integer.toBinaryString(Integer.parseInt(result.convertToDec(result.getText()))));
             }
             
             if(oct.isSelected())
@@ -491,52 +660,55 @@ public class ProgrammerSCalculator extends JFrame implements ActionListener{
                 {
                     result.setText("7");
                 }
+                if(e.getSource() == one)
+                {    
+                    result.setText("1");
+                }
+                if(e.getSource() == zero || (e.getSource() == zero2) )
+                {
+                    result.setText("0");
+                }
+                if(e.getSource() == back)
+                {
+                    result.setText("back");
+                }
+                if(e.getSource() == clear)
+                {
+                    result.setText("clear");
+                    binary.clear();
+                }
+                if(e.getSource() == clearEntry)
+                {
+                    result.setText("clearEntry");
+                    binary.clear();
+                }
+                if(e.getSource() == negative)
+                {
+                    result.setText("negative");
+                }
+                if(e.getSource() == add)
+                {
+                    result.add();
+                }
+                if(e.getSource() == equals)
+                {
+                    result.equals();
+                }
+                if(e.getSource() == sub)
+                {
+                    result.sub();
+                }
+                if(e.getSource() == mult)
+                {
+                    result.mult();
+                }
+                if(e.getSource() == div)
+                {
+                    result.div();
+                }
             }
             
-            if(e.getSource() == one)
-            {    
-                result.setText("1");
-            }
-            if(e.getSource() == zero || (e.getSource() == zero2) )
-            {
-                result.setText("0");
-            }
-            if(e.getSource() == back)
-            {
-                result.setText("back");
-            }
-            if(e.getSource() == clear)
-            {
-                result.setText("clear");
-            }
-            if(e.getSource() == clearEntry)
-            {
-                result.setText("clearEntry");
-            }
-            if(e.getSource() == negative)
-            {
-                result.setText("negative");
-            }
-            if(e.getSource() == add)
-            {
-                result.add();
-            }
-            if(e.getSource() == equals)
-            {
-                result.equals();
-            }
-            if(e.getSource() == sub)
-            {
-                result.sub();
-            }
-            if(e.getSource() == mult)
-            {
-                result.mult();
-            }
-            if(e.getSource() == div)
-            {
-                result.div();
-            }
+            
             
         }
     
